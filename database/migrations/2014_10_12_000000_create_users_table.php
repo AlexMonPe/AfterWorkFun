@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nick');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('steamUserName');
+            $table->string('steamUserName')->nullable();
             $table->boolean('isActive')->default(true);
             $table->timestamps();
         });
