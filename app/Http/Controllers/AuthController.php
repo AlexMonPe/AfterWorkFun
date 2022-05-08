@@ -30,11 +30,34 @@ class AuthController extends Controller
                 'steamUserName' => $request->get('steamUserName'),
             ]);
             $token = JWTAuth::fromUser($user);
-            Log::info('new user created called'.$user->nick);
+            Log::info('new user created called ' . $user->nick);
             return response()->json(compact('user', 'token'), 201);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json(['error' => ' error registering user ' . $th->getMessage()], 500);
+        }
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            $input = $request->only('email', 'password');
+            $jwt_token = null;
+
+            if (!$jwt_token = JWTAuth::attempt($input)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid Email or Password',
+                ], Response::HTTP_UNAUTHORIZED);
+            }
+
+            return response()->json([
+                'success' => true,
+                'token' => $jwt_token,
+            ]);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json(['error' => ' Error in login ' . $th->getMessage()], 500);
         }
     }
 }
