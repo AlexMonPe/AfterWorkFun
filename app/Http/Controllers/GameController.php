@@ -80,4 +80,19 @@ class GameController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function deleteGame($id){
+        try {
+            $game = Game::where('id', $id)->first();
+            
+            if (empty($game)) return response()->json(["error" => "Game not found"], Response::HTTP_NOT_FOUND);
+
+            $game->delete();
+
+            return response()->json(["success" => "Deleted game => " . $game->name], Response::HTTP_OK);
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }
