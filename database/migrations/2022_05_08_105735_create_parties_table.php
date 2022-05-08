@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('game_id')->references('id')->on('games')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('isActive')->default(true);
+            $table->timestamps();
         });
     }
 
