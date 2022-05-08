@@ -35,5 +35,6 @@ Route::group([
     //'middleware' => 'jwt.auth'
 ], function () {
     Route::get('/games', [GameController::class, 'getAllGames']);
+    Route::post('/games', [GameController::class, 'createGame']);
 
 });
