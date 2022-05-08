@@ -22,6 +22,8 @@ return new class extends Migration
             $table->boolean('isActive')->default(true);
             $table->timestamps();
         });
+
+        Schema::dropIfExists('personal_access_tokens');
     }
 
     /**
