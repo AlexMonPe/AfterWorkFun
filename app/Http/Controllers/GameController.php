@@ -42,7 +42,7 @@ class GameController extends Controller
 
         $newGame->save();
 
-        return response()->json(["success" => "Game created -> ".$newGame ], Response::HTTP_CREATED);
+        return response()->json(["success" => "Game created -> ".$newGame->name ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             Log::error('Error creating game ' . $th->getMessage());
             return response()->json([
