@@ -92,7 +92,10 @@ class GameController extends Controller
             return response()->json(["success" => "Deleted game => " . $game->name], Response::HTTP_OK);
 
         } catch (\Throwable $th) {
-            //throw $th;
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error deleting game '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
