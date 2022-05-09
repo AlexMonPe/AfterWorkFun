@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Party;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -138,6 +139,26 @@ class PartyController extends Controller
             return response()->json([
                 "name" => $th->getMessage(),
                 "error" => 'Error deleting party '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    //join $id party 
+
+    public function joinParty ($id) {
+        try {
+            $userId = auth()->user()->id;
+            
+            $party = Party::where('id', $id)->first();
+
+            $party->users_parties()->attach($userId);
+
+            return response()->json(["success" => "joined party => " . $party->name], Response::HTTP_OK);
+ 
+        } catch (\Throwable $th) {
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error joining party '
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
