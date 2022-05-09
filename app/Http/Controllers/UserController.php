@@ -10,6 +10,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
+    public function getAllUsers()
+    {
+        try {
+            $users = User::get()->toArray();
+
+            return $users;
+        } catch (\Throwable $th) {
+            Log::error('Error getting all users ' . $th->getMessage());
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error getting all users '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function updateUserProfile (Request $request, $id) {
         try {
             $validator = Validator::make($request->all(), [
