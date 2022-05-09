@@ -15,11 +15,11 @@ class Party extends Model
         'user_id'
     ];
 
-    public function user()
+    public function users_parties()
     {
         return $this->belongsToMany(User::class, 'users_parties');
     }
-    public function users_parties()
+    public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
