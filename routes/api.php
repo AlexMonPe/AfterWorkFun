@@ -65,5 +65,6 @@ Route::group([
 ], function () {
     Route::post('/parties', [PartyController::class, 'createParty']);
     Route::get('/parties', [PartyController::class, 'getAllParties']);
+    Route::get('/partiesbyuser', [PartyController::class, 'getPartiesByUserId']);
 
 });
