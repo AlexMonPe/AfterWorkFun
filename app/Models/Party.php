@@ -12,10 +12,15 @@ class Party extends Model
     protected $fillable = [
         'name',
         'game_id',
+        'user_id'
     ];
 
     public function user()
     {
         return $this->belongsToMany(User::class, 'users_parties');
+    }
+    public function users_parties()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
