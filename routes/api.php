@@ -17,21 +17,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+//Auth no token needed
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+//Auth
 
 Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
+});
+
+//Users
+
+Route::group([
+    'middleware' => 'jwt.auth'
+], function () {
+    Route::get('/users', [UserController::class, 'getAllUsers']);
     Route::put('/profile/{id}', [UserController::class, 'updateUserProfile']);
 });
+
+//Games
 
 Route::group([
     'middleware' => 'jwt.auth'
@@ -40,5 +53,4 @@ Route::group([
     Route::post('/games', [GameController::class, 'createGame']);
     Route::put('/games/{id}', [GameController::class, 'updateGame']);
     Route::delete('/games/{id}', [GameController::class, 'deleteGame']);
-
 });
