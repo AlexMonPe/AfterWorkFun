@@ -25,6 +25,23 @@ class PartyController extends Controller
         }
     }
 
+    public function getPartiesByUserId()
+    {
+        try {
+            $userId = auth()->user()->id;
+
+            $parties = Party::where('user_id', $userId)->get()->toArray();
+
+            return $parties;
+        } catch (\Throwable $th) {
+            Log::error('Error getting all parties by id user' . $th->getMessage());
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error getting all parties by id user '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function createParty(Request $request)
     {
         try {
