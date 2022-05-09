@@ -10,6 +10,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PartyController extends Controller
 {
+    public function getAllParties()
+    {
+        try {
+            $parties = Party::get()->toArray();
+
+            return $parties;
+        } catch (\Throwable $th) {
+            Log::error('Error getting all parties ' . $th->getMessage());
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error getting all parties '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function createParty(Request $request)
     {
         try {
