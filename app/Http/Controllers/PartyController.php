@@ -30,18 +30,24 @@ class PartyController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'game_id' => 'required|int'
+                'game_id' => 'required|int',
+                'user_id' => 'required|int'
             ]);
 
             if ($validator->fails()) return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+
+            $userId = auth()->user()->id;
 
             $newParty = new Party();
 
             $newParty->name = $request->name;
             $newParty->game_id = $request->game_id;
+            $newParty->user_id = $userId;
+
+
             $newParty->save();
 
-            $userId = auth()->user()->id;
+            
 
             $newParty->user()->attach($userId);
 
