@@ -64,5 +64,6 @@ Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
     Route::post('/parties', [PartyController::class, 'createParty']);
+    Route::get('/parties', [PartyController::class, 'getAllParties']);
 
 });
