@@ -61,10 +61,7 @@ class PartyController extends Controller
             $newParty->game_id = $request->game_id;
             $newParty->user_id = $userId;
 
-
             $newParty->save();
-
-            
 
             $newParty->user()->attach($userId);
 
@@ -75,6 +72,36 @@ class PartyController extends Controller
             return response()->json([
                 "name" => $th->getMessage(),
                 "error" => 'Error creating game '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function updateParty(Request $request, $id)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'string',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+            }
+
+            $userId = auth()->user()->id;
+
+            $party = Party::where('id', $id)->where('user_id', $userId)->first();
+
+            if (empty($party)) return response()->json(["error" => "Party not found"], Response::HTTP_NOT_FOUND);
+
+            if (isset($request->name)) $party->name = $request->name;
+
+            $party->save();
+
+            return response()->json(["success" => "Updated party => " . $party->name], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error updating party '
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
