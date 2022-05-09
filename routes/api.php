@@ -67,5 +67,6 @@ Route::group([
     Route::get('/parties', [PartyController::class, 'getAllParties']);
     Route::get('/partiesbyuser', [PartyController::class, 'getPartiesByUserId']);
     Route::put('/parties/{id}', [PartyController::class, 'updateParty']);
+    Route::delete('/parties/{id}', [PartyController::class, 'deleteParty']);
 
 });
