@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +30,11 @@ Route::group([
 ], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
+    Route::put('/profile/{id}', [UserController::class, 'updateUserProfile']);
 });
 
 Route::group([
-    //'middleware' => 'jwt.auth'
+    'middleware' => 'jwt.auth'
 ], function () {
     Route::get('/games', [GameController::class, 'getAllGames']);
     Route::post('/games', [GameController::class, 'createGame']);
