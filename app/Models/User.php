@@ -61,40 +61,4 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
-    public function updateUserProfile (Request $request, $id) {
-        try {
-            $validator = Validator::make($request->all(), [
-                'nick' => 'string',
-                'email' => 'email',
-                'password' => 'string',
-                'steamUserName' => 'string',
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
-            }
-
-            $userId = auth()->user()->id;
-
-            $profile = User::where('id', $id)->where('id_user', $userId)->first();
-
-            if (empty($profile)) response()->json(["error" => "User Profile not found"],Response::HTTP_NOT_FOUND);
-
-            if (isset($request->nick)) $profile->name = $request->name;
-            if (isset($request->email)) $profile->email = $request->email;
-            if (isset($request->password)) $profile->password = bcrypt($request->password);
-            if (isset($request->steamUserName)) $profile->steamUserName = $request->steamUserName;
-
-            $profile->save();
-
-            return response()->json(["data" => $profile, "success" => "Profile updated"], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            Log::error('Error updating profile ' . $th->getMessage());
-            return response()->json([
-                "name" => $th->getMessage(),
-                "error" => 'Error updating profile'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-    }
 }
