@@ -19,8 +19,14 @@ class Party extends Model
     {
         return $this->belongsToMany(User::class, 'users_parties');
     }
+
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function games()
+    {
+        return $this->belongsTo(Game::class, 'game_id');
     }
 }

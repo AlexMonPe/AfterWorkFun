@@ -15,4 +15,9 @@ class Game extends Model
         'name',
         'isActive',
     ];
+
+    public function parties()
+    {
+        return $this->hasMany(Party::class, 'game_id');
+    }
 }
