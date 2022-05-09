@@ -162,4 +162,24 @@ class PartyController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    //left party with $id
+
+    public function leaveParty ($id) {
+        try {
+            $userId = auth()->user()->id;
+            
+            $party = Party::where('id', $id)->first();
+
+            $party->users_parties()->detach($userId);
+
+            return response()->json(["success" => "you left party => " . $party->name], Response::HTTP_OK);
+ 
+        } catch (\Throwable $th) {
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error joining party '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }
