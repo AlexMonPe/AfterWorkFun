@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -72,4 +73,12 @@ Route::group([
     Route::post('/joinparty/{id}', [PartyController::class, 'joinParty']);
     Route::post('/leaveparty/{id}', [PartyController::class, 'leaveParty']);
 
+});
+
+//Messages
+Route::group([
+    'middleware' => 'jwt.auth'
+], function () {
+    Route::get('/messages', [MessageController::class, 'getAllMessagesFromParty']);
+    
 });
