@@ -42,6 +42,8 @@ Route::group([
 ], function () {
     Route::get('/users', [UserController::class, 'getAllUsers']);
     Route::put('/profile/{id}', [UserController::class, 'updateUserProfile']);
+    Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
+
 });
 
 //Games
