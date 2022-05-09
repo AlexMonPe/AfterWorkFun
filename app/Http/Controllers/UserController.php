@@ -59,4 +59,23 @@ class UserController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function deleteUser($id){
+        
+        try {
+            $user = User::where('id', $id)->first();
+            
+            if (empty($user)) return response()->json(["error" => "User not found"], Response::HTTP_NOT_FOUND);
+
+            $user->delete();
+
+            return response()->json(["success" => "Deleted user => " . $user->nick], Response::HTTP_OK);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error deleting user '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }
