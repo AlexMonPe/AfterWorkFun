@@ -42,6 +42,22 @@ class PartyController extends Controller
         }
     }
 
+    public function getPartiesByGame($id)
+    {
+        try {
+
+            $parties = Party::where('game_id', $id)->get()->toArray();
+
+            return $parties;
+        } catch (\Throwable $th) {
+            Log::error('Error getting all parties by game ' . $th->getMessage());
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error getting all parties by game '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function createParty(Request $request)
     {
         try {
