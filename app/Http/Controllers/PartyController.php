@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Party;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,7 +32,9 @@ class PartyController extends Controller
         try {
             $userId = auth()->user()->id;
 
-            $parties = Party::where('user_id', $userId)->get()->toArray();
+            //$parties = Party::where('user_id', $userId)->get()->toArray();
+
+            $parties = User::find($userId)->parties;
 
             return $parties;
         } catch (\Throwable $th) {
@@ -46,8 +49,11 @@ class PartyController extends Controller
     public function getPartiesByGame($id)
     {
         try {
+            //without relation
+            //$parties = Party::where('game_id', $id)->get()->toArray();
 
-            $parties = Party::where('game_id', $id)->get()->toArray();
+            //with relation
+            $parties = Game::find($id)->parties;
 
             return $parties;
         } catch (\Throwable $th) {
