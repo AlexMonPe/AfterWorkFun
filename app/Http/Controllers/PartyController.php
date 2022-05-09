@@ -71,7 +71,6 @@ class PartyController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
                 'game_id' => 'required|int',
-                'user_id' => 'required|int'
             ]);
 
             if ($validator->fails()) return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
@@ -86,11 +85,11 @@ class PartyController extends Controller
 
             $newParty->save();
 
-            $newParty->user()->attach($userId);
+            $newParty->users_parties()->attach($userId);
 
             return response()->json(["success" => "Party created -> " . $newParty->name], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
-            Log::error('Error creating game ' . $th->getMessage());
+            Log::error('Error creating party ' . $th->getMessage());
 
             return response()->json([
                 "name" => $th->getMessage(),
