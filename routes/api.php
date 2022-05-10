@@ -79,7 +79,8 @@ Route::group([
 Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
-    Route::get('/messages/{id}', [MessageController::class, 'getAllMessagesFromParty']);
+    Route::get('/messagesfromparty/{id}', [MessageController::class, 'getAllMessagesFromParty']);
     Route::post('/messages', [MessageController::class, 'createMessage']);
+    Route::put('/messages/{id}', [MessageController::class, 'updateMessage']);
     
 });
