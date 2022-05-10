@@ -82,5 +82,6 @@ Route::group([
     Route::get('/messagesfromparty/{id}', [MessageController::class, 'getAllMessagesFromParty']);
     Route::post('/messages', [MessageController::class, 'createMessage']);
     Route::put('/messages/{id}', [MessageController::class, 'updateMessage']);
+    Route::delete('/messages/{id}', [MessageController::class, 'deleteMessage']);
     
 });

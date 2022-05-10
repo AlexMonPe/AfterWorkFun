@@ -17,10 +17,10 @@ class MessageController extends Controller
             $messages = Party::find($id)->messages;
             return $messages;
         } catch (\Throwable $th) {
-            Log::error('Error getting all parties ' . $th->getMessage());
+            Log::error('Error getting all messages ' . $th->getMessage());
             return response()->json([
                 "name" => $th->getMessage(),
-                "error" => 'Error getting all parties '
+                "error" => 'Error getting all messages '
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -81,7 +81,27 @@ class MessageController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 "name" => $th->getMessage(),
-                "error" => 'Error updating party '
+                "error" => 'Error updating message '
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function deleteMessage($id){
+        try {
+            $userId = auth()->user()->id;
+
+            $message = Message::where('id', $id)->where('user_id', $userId)->first();
+            
+            if (empty($message)) return response()->json(["error" => "Message not found"], Response::HTTP_NOT_FOUND);
+
+            $message->delete();
+
+            return response()->json(["success" => "Deleted message => " . $message->message], Response::HTTP_OK);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                "name" => $th->getMessage(),
+                "error" => 'Error deleting message '
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
