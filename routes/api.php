@@ -42,7 +42,6 @@ Route::group([
 Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
-    Route::get('/users', [UserController::class, 'getAllUsers']);
     Route::put('/profile/{id}', [UserController::class, 'updateUserProfile']);
     Route::delete('/users/{id}', [UserController::class, 'deleteUser']);
 
@@ -65,7 +64,6 @@ Route::group([
     'middleware' => 'jwt.auth'
 ], function () {
     Route::post('/parties', [PartyController::class, 'createParty']);
-    Route::get('/parties', [PartyController::class, 'getAllParties']);
     Route::get('/partiesbyuser', [PartyController::class, 'getPartiesByUserId']);
     Route::get('/partiesbygame/{id}', [PartyController::class, 'getPartiesByGame']);
     Route::put('/parties/{id}', [PartyController::class, 'updateParty']);
@@ -89,6 +87,8 @@ Route::group([
 Route::group([
     'middleware' => ['jwt.auth','isAdmin']
 ], function () {
+    Route::get('/users', [UserController::class, 'getAllUsers']);
+    Route::get('/parties', [PartyController::class, 'getAllParties']);
     Route::post('/create-admin/{id}', [UserController::class, 'createAdmin']);
     Route::delete('/delete-admin/{id}', [UserController::class, 'deleteRoleAdmin']);
 
