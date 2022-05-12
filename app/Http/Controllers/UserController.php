@@ -27,7 +27,8 @@ class UserController extends Controller
         }
     }
 
-    public function updateUserProfile (Request $request, $id) {
+    public function updateUserProfile(Request $request, $id)
+    {
         try {
             $validator = Validator::make($request->all(), [
                 'nick' => 'string',
@@ -43,7 +44,7 @@ class UserController extends Controller
 
             $profile = User::where('id', $id)->where('id', $userId)->first();
 
-            if (empty($profile)) response()->json(["error" => "User Profile not found"],Response::HTTP_NOT_FOUND);
+            if (empty($profile)) response()->json(["error" => "User Profile not found"], Response::HTTP_NOT_FOUND);
 
             if (isset($request->nick)) $profile->nick = $request->nick;
             if (isset($request->email)) $profile->email = $request->email;
@@ -62,17 +63,17 @@ class UserController extends Controller
         }
     }
 
-    public function deleteUser($id){
-        
+    public function deleteUser($id)
+    {
+
         try {
             $user = User::where('id', $id)->first();
-            
+
             if (empty($user)) return response()->json(["error" => "User not found"], Response::HTTP_NOT_FOUND);
 
             $user->delete();
 
             return response()->json(["success" => "Deleted user => " . $user->nick], Response::HTTP_OK);
-
         } catch (\Throwable $th) {
             return response()->json([
                 "name" => $th->getMessage(),
@@ -81,19 +82,44 @@ class UserController extends Controller
         }
     }
 
-    public function createAdmin($id){
+    public function createAdmin($id)
+    {
         try {
             Log::info('createAdmin');
 
             $user = User::find($id);
 
+
+            $roles = $user->roles;
+
+            foreach ($roles as $role) {
+                if ($role->pivot->role_id == self::ROLE_ADMIN_ID) {
+                    return 'This user is already admin';
+                }
+            }
+
             $user->roles()->attach(self::ROLE_ADMIN_ID);
 
-            return response()->json(['success' => 'User with id: '.$id.' '.' is admin'], Response::HTTP_ACCEPTED);
-
+            return response()->json(['success' => 'User: ' . $user->nick . ' is admin'], Response::HTTP_ACCEPTED);
         } catch (\Throwable $th) {
-            Log::error('createAdmin'.$th->getMessage());
+            Log::error('createAdmin' . $th->getMessage());
             return response()->json(['error' => 'Error creating Admin'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function deleteRoleAdmin($id)
+    {
+        try {
+            Log::info('deleteRoleAdmin');
+
+            $user = User::find($id);
+
+            $user->roles()->detach(self::ROLE_ADMIN_ID);
+
+            return response()->json(['success' => 'User: ' . $user->nick . ' is not admin'], Response::HTTP_ACCEPTED);
+        } catch (\Throwable $th) {
+            Log::error('destroyUserAdmin' . $th->getMessage());
+            return response()->json(['error' => 'Error deleting admin role'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
