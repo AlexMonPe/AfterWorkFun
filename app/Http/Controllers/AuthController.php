@@ -93,7 +93,6 @@ class AuthController extends Controller
                 "nick" => auth()->user()->nick,
                 "email" => auth()->user()->email,
                 "steamUserName" => auth()->user()->steamUserName,
-                "account created" => auth()->user()->created_at,
             ]);
         } catch (\Throwable $th) {
             return response()->json(['error' => ' error in profile user ' . $th->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
