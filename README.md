@@ -32,6 +32,8 @@ Se han utilizado las siguientes tecnologías:
 
 # Descripción y usabilidad 📋
 
+Heroku Url: https://afterwork-php.herokuapp.com/
+
 Proyecto del bootcamp en GeeksHubs dónde desde producción nos piden que realicemos el backend de una web app dónde los jugadores pueden crear salas de los videojuegos más famosos del mercado con el fin de chatear con otros jugadores que quieran jugar, unirse a otras salas ya creadas, escribir mensajes...
 He seguido la filosofia git Flow creante una rama `develop` que ha sido dónde he desarrollado todo el backend, y ramas auxiliares como features para añadir funcionalidades sin afectar a la rama de desarrollo, una vez finalizada y comprobada la nueva funcionalidad, he mergeado a develop. Además, para organizarme mejor he utilizado `Trello` como metodologia Kanban, la cuál me ha ayudado mucho a organizar objetivos MVP, extras y tareas en progreso y ya realizadas.
 A continuación cito los objetivos MVP del proyecto:
@@ -171,7 +173,6 @@ Hemos aislado funcionalidades para mejorar la organización y limpieza del códi
 * He añadido de momento el middleware de IsAdmin para verificar en ciertos endpoints que el usuario tiene el role admin, para añadirle seguridad a los mismos y evitar que un usuario normal (player) pueda realizar acciones que perjudiquen a los demás jugadores o al administrador.
 
 
-
 # Base de datos 🔗
 
 He utilizado Eloquent como ORM para interactuar con la base de datos Mysql, en el caso de Laravel ya viene integrado por defecto en el framework.
@@ -202,7 +203,7 @@ Para poder consumir el backend es necesario lo siguiente:
 - Clonar o forkear el repositorio si deseas, **Alejandro:** _(https://github.com/AlexMonPe/AfterWorkFun)_.
 - Instalar Composer: `https://getcomposer.org/download/`
 - Hacer _composer install_ para cargar las dependencias del composer.json
-- Atacar al API publicada en PONER ENLACE HEROKU o como localhost si lo prefieres (es necesario cambiarlo en el .env)
+- Atacar al API publicada en https://afterwork-php.herokuapp.com/ o como localhost si lo prefieres (es necesario cambiarlo en el .env)
 - Revisar esta documentación.
 - Es necesario utilizar Postman para probar el Api ya que carece de Frontend.
 - Conexión a internet
