@@ -1,5 +1,5 @@
 # Backend AfterWorkFun
-[![Afterworkfun.gif](https://i.postimg.cc/mZ0gmyd1/Afterworkfun.gif)](https://postimg.cc/ThJxwgvT)
+![Afterworkfun.gif](https://i.postimg.cc/mZ0gmyd1/Afterworkfun.gif)
 
 ## Table of contents
   - [API Afterworkfun](#api-afterworkfun)
