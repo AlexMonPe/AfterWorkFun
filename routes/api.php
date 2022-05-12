@@ -87,7 +87,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'jwt.auth'
+    'middleware' => ['jwt.auth','isAdmin']
 ], function () {
     Route::post('/create-admin/{id}', [UserController::class, 'createAdmin']);
     Route::delete('/delete-admin/{id}', [UserController::class, 'deleteRoleAdmin']);
