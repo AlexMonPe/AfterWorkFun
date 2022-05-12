@@ -65,7 +65,6 @@ class UserController extends Controller
 
     public function deleteUser($id)
     {
-
         try {
             $user = User::where('id', $id)->first();
 
@@ -88,7 +87,6 @@ class UserController extends Controller
             Log::info('createAdmin');
 
             $user = User::find($id);
-
 
             $roles = $user->roles;
 
