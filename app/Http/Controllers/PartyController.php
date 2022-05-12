@@ -34,7 +34,7 @@ class PartyController extends Controller
 
             //$parties = Party::where('user_id', $userId)->get()->toArray();
 
-            $parties = User::find($userId)->parties;
+            $parties = User::find($userId)->users_parties;
 
             return $parties;
         } catch (\Throwable $th) {
@@ -128,18 +128,18 @@ class PartyController extends Controller
         }
     }
 
-    public function deleteParty($id){
+    public function deleteParty($id)
+    {
         try {
             $userId = auth()->user()->id;
 
             $party = Party::where('id', $id)->where('user_id', $userId)->first();
-            
+
             if (empty($party)) return response()->json(["error" => "Party not found"], Response::HTTP_NOT_FOUND);
 
             $party->delete();
 
             return response()->json(["success" => "Deleted party => " . $party->name], Response::HTTP_OK);
-
         } catch (\Throwable $th) {
             return response()->json([
                 "name" => $th->getMessage(),
@@ -150,16 +150,23 @@ class PartyController extends Controller
 
     //join $id party 
 
-    public function joinParty ($id) {
+    public function joinParty($id)
+    {
         try {
             $userId = auth()->user()->id;
-            
-            $party = Party::where('id', $id)->first();
 
-            $party->users_parties()->attach($userId);
+            $user = User::find($userId);
 
-            return response()->json(["success" => "joined party => " . $party->name], Response::HTTP_OK);
- 
+            $parties = $user->users_parties;
+        
+            foreach ($parties as $party) {
+
+                if ($id == $party->pivot->party_id && $userId == $party->pivot->user_id) {
+                    return 'Can\'t join again';
+                }
+            }
+            $user->users_parties()->attach($id);
+            return response()->json(["success" => "Joined party success"], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([
                 "name" => $th->getMessage(),
@@ -170,16 +177,16 @@ class PartyController extends Controller
 
     //left party with $id
 
-    public function leaveParty ($id) {
+    public function leaveParty($id)
+    {
         try {
             $userId = auth()->user()->id;
-            
+
             $party = Party::where('id', $id)->first();
 
             $party->users_parties()->detach($userId);
 
             return response()->json(["success" => "you left party => " . $party->name], Response::HTTP_OK);
- 
         } catch (\Throwable $th) {
             return response()->json([
                 "name" => $th->getMessage(),
