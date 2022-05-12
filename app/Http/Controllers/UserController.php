@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
+    const ROLE_ADMIN_ID = 2;
+
     public function getAllUsers()
     {
         try {
@@ -76,6 +78,22 @@ class UserController extends Controller
                 "name" => $th->getMessage(),
                 "error" => 'Error deleting user '
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function createAdmin($id){
+        try {
+            Log::info('createAdmin');
+
+            $user = User::find($id);
+
+            $user->roles()->attach(self::ROLE_ADMIN_ID);
+
+            return response()->json(['success' => 'User with id: '.$id.' '.' is admin'], Response::HTTP_ACCEPTED);
+
+        } catch (\Throwable $th) {
+            Log::error('createAdmin'.$th->getMessage());
+            return response()->json(['error' => 'Error creating Admin'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

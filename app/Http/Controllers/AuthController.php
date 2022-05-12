@@ -11,7 +11,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    const ROLE_USER_ID = 1;
+    const ROLE_PLAYER_ID = 1;
 
     public function register(Request $request)
     {
@@ -34,7 +34,7 @@ class AuthController extends Controller
             $token = JWTAuth::fromUser($user);
 
             //Add player role by default in normal users
-            $user->roles()->attach(self::ROLE_USER_ID);
+            $user->roles()->attach(self::ROLE_PLAYER_ID);
 
             Log::info('new user created called ' . $user->nick);
             return response()->json(compact('user', 'token'), Response::HTTP_ACCEPTED);

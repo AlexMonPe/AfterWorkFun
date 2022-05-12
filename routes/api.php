@@ -85,3 +85,10 @@ Route::group([
     Route::delete('/messages/{id}', [MessageController::class, 'deleteMessage']);
     
 });
+
+Route::group([
+    'middleware' => 'jwt.auth'
+], function () {
+    Route::post('/create-admin/{id}', [UserController::class, 'createAdmin']);
+    
+});
