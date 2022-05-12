@@ -43,12 +43,12 @@ class UserController extends Controller
             $userId = auth()->user()->id;
 
             $profile = User::where('id', $id)->where('id', $userId)->first();
+            
 
-            if (empty($profile)) response()->json(["error" => "User Profile not found"], Response::HTTP_NOT_FOUND);
+            if (empty($profile)) return "User Profile not found";
 
             if (isset($request->nick)) $profile->nick = $request->nick;
             if (isset($request->email)) $profile->email = $request->email;
-            // if (isset($request->password)) $profile->password = bcrypt($request->password);
             if (isset($request->steamUserName)) $profile->steamUserName = $request->steamUserName;
 
             $profile->save();
