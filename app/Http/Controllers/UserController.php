@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    const ROLE_ADMIN_ID = 2;
+    const ROLE_ADMIN_ID = 11;
 
     public function getAllUsers()
     {

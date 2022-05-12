@@ -26,32 +26,32 @@ class PartySeeder extends Seeder
         DB::table('parties')->insert(
             [
                 'name' => 'Tuesday party',
-                'game_id' => 2,
-                'user_id' => 2,
+                'game_id' => 11,
+                'user_id' => 11,
             ]
         );
 
         DB::table('parties')->insert(
             [
                 'name' => 'Wednesday party',
-                'game_id' => 3,
-                'user_id' => 3,
+                'game_id' => 21,
+                'user_id' => 21,
             ]
         );
 
         DB::table('parties')->insert(
             [
                 'name' => 'Friday party',
-                'game_id' => 4,
-                'user_id' => 4,
+                'game_id' => 31,
+                'user_id' => 31,
             ]
         );
 
         DB::table('parties')->insert(
             [
                 'name' => 'Weekend party',
-                'game_id' => 5,
-                'user_id' => 5,
+                'game_id' => 41,
+                'user_id' => 41,
             ]
         );
     }

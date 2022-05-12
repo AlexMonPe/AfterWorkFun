@@ -24,29 +24,29 @@ class UserPartySeeder extends Seeder
 
         DB::table('users_parties')->insert(
             [
-                'user_id' => 2,
-                'party_id' => 2
+                'user_id' => 11,
+                'party_id' => 11
             ]
         );
 
         DB::table('users_parties')->insert(
             [
-                'user_id' => 3,
-                'party_id' => 3
+                'user_id' => 21,
+                'party_id' => 21
             ]
         );
 
         DB::table('users_parties')->insert(
             [
-                'user_id' => 4,
-                'party_id' => 4
+                'user_id' => 31,
+                'party_id' => 31
             ]
         );
 
         DB::table('users_parties')->insert(
             [
-                'user_id' => 5,
-                'party_id' => 5
+                'user_id' => 41,
+                'party_id' => 41
             ]
         );
     }
