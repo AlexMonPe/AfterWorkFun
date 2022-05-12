@@ -1,1 +1,1 @@
-web: vendor/bin/afterwork-php public/
+web: vendor/bin/heroku-php-apache2 public/
