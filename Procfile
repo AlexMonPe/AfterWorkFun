@@ -1,1 +1,1 @@
-web: vendor/bin/afterwork-php api/
+web: vendor/bin/afterwork-php public/
