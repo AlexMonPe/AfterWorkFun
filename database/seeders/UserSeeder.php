@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class UserSeeder extends Seeder
             [
                 'nick' => 'alex',
                 'email' => 'alex@alex.com',
-                'password' => "alex",
+                'password' => Hash::make('alex'),
                 'steamUserName' => 'yadex'
             ]
         );
@@ -27,7 +28,7 @@ class UserSeeder extends Seeder
             [
                 'nick' => 'mihai',
                 'email' => 'mihai@mihai.com',
-                'password' => "mihai",
+                'password' => Hash::make('mihai'),
                 'steamUserName' => 'daniel'
             ]
         );
@@ -36,7 +37,7 @@ class UserSeeder extends Seeder
             [
                 'nick' => 'yoly',
                 'email' => 'yoly@yoly.com',
-                'password' => "yoly",
+                'password' => Hash::make('yoly'),
                 'steamUserName' => 'yolyty'
             ]
         );
@@ -45,7 +46,7 @@ class UserSeeder extends Seeder
             [
                 'nick' => 'susana',
                 'email' => 'susana@susana.com',
-                'password' => "susana",
+                'password' => Hash::make('susana'),
                 'steamUserName' => 'susichen'
             ]
         );
@@ -54,7 +55,7 @@ class UserSeeder extends Seeder
             [
                 'nick' => 'rogelio',
                 'email' => 'rogelio@rogelio.com',
-                'password' => "rogelio",
+                'password' => Hash::make('rogelio'),
                 'steamUserName' => 'rogthor'
             ]
         );
